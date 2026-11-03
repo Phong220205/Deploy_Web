@@ -72,3 +72,14 @@
   .dashboard-topbar > div:first-child > div span { display: none; }.dashboard-topbar > div:first-child > div strong { font-size: 12px; }.avatar { display: none; }.dashboard-content { padding-inline: 12px; }.page-heading h1, .dashboard-welcome h1, .detail-admin-heading h1 { font-size: 27px; }.page-heading .button { width: 100%; }.stats-grid article { min-height: 100px; }
   .chart-wrap { height: 280px; }.panel > header, .panel-table-header { padding: 18px; }.table-toolbar { padding: 12px; }.filter-select, .standalone-select { width: 100%; flex-basis: 100%; min-height: 42px; }.timeline { padding-inline: 16px; }.team-grid { padding: 12px; }.team-card { grid-template-columns: 40px 1fr; padding: 14px; }.team-avatar { width: 38px; height: 38px; }.upload-panel { padding: 15px; }.file-list { padding-inline: 12px; }.file-list article { grid-template-columns: 30px 1fr auto; }.file-list article .icon-button--danger { grid-column: 3; }.modal-backdrop { padding: 10px; }.modal { max-height: 92vh; }.modal-form { padding: 18px; }.modal-actions { flex-direction: column-reverse; }.modal-actions .button { width: 100%; }.form-actions { padding: 15px; }.form-actions .button { flex: 1; }.toast-stack { top: 10px; right: 10px; width: calc(100% - 20px); }
 }
+
+/* ===== Responsive: báo cáo / nhật ký / hệ thống ===== */
+@media (max-width: 1280px) {
+  .report-grid { grid-template-columns: repeat(2, 1fr); }
+  .system-stat-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 900px) {
+  .report-grid, .audit-note-grid, .system-grid { grid-template-columns: 1fr; }
+  .system-stat-grid { grid-template-columns: 1fr; }
+  .report-card-actions { flex-direction: column; }
+}

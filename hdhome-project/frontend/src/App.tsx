@@ -2,11 +2,14 @@ import { Route, Routes } from 'react-router-dom';
 import { DashboardLayout } from './layouts/DashboardLayout';
 import { PublicLayout } from './layouts/PublicLayout';
 import { LoginPage } from './pages/auth/LoginPage';
+import { AuditLogsPage } from './pages/dashboard/AuditLogsPage';
 import { ContactsPage } from './pages/dashboard/ContactsPage';
 import { DashboardPage } from './pages/dashboard/DashboardPage';
 import { ProjectDetailAdminPage } from './pages/dashboard/ProjectDetailPage';
 import { ProjectFormPage } from './pages/dashboard/ProjectFormPage';
 import { ProjectsAdminPage } from './pages/dashboard/ProjectsPage';
+import { ReportsPage } from './pages/dashboard/ReportsPage';
+import { SystemPage } from './pages/dashboard/SystemPage';
 import { ContractsPage, CustomersPage, EmployeesPage, InvestorsPage, MaterialsPage, UsersPage } from './pages/dashboard/ResourcePages';
 import { RolesPage } from './pages/dashboard/RolesPage';
 import { NotFoundPage } from './pages/NotFoundPage';
@@ -46,6 +49,9 @@ export default function App() {
         <Route path="contacts" element={<ProtectedRoute roles={['ADMIN']}><ContactsPage /></ProtectedRoute>} />
         <Route path="users" element={<ProtectedRoute roles={['ADMIN']}><UsersPage /></ProtectedRoute>} />
         <Route path="roles" element={<ProtectedRoute roles={['ADMIN']}><RolesPage /></ProtectedRoute>} />
+        <Route path="reports" element={<ProtectedRoute roles={[...managerRoles]}><ReportsPage /></ProtectedRoute>} />
+        <Route path="audit-logs" element={<ProtectedRoute roles={['ADMIN']}><AuditLogsPage /></ProtectedRoute>} />
+        <Route path="system" element={<ProtectedRoute roles={['ADMIN']}><SystemPage /></ProtectedRoute>} />
       </Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

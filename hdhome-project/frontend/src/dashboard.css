@@ -63,3 +63,57 @@
 .roles-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }.role-card { display: flex; flex-direction: column; padding: 22px; background: white; border: 1px solid #e0e1db; border-radius: 4px; }.role-card > header { display: flex; align-items: center; gap: 13px; }.role-icon { width: 43px; height: 43px; display: grid; place-items: center; color: #765716; background: #fff1c7; border-radius: 3px; }.role-card header span { color: #a1a097; font-size: 8px; letter-spacing: .1em; }.role-card h2 { margin: 4px 0 0; font-size: 15px; }.role-card > p { min-height: 42px; margin: 20px 0; color: #77776f; font-size: 10px; line-height: 1.6; }.permission-list { display: grid; gap: 6px; padding: 13px; background: #f7f7f3; }.permission-list strong { margin-bottom: 4px; font-size: 9px; }.permission-list span { color: #696962; font-size: 8px; }.permission-list span::before { content: "✓"; margin-right: 6px; color: var(--success); }.role-card > footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 18px; }
 .contact-detail { padding: 23px; }.contact-detail h2 { margin: 18px 0 10px; font-size: 22px; }.contact-detail > p { padding: 15px; color: #5f5f58; background: #f7f7f3; line-height: 1.7; }.contact-detail dl { margin: 17px 0; }.contact-detail dl div { display: grid; grid-template-columns: 120px 1fr; padding: 9px 0; border-bottom: 1px solid #edede8; }.contact-detail dt { color: #98978f; font-size: 9px; }.contact-detail dd { margin: 0; font-size: 11px; }.contact-detail .modal-actions { padding-top: 18px; }
 .not-found { min-height: 100vh; display: grid; place-content: center; place-items: center; padding: 30px; text-align: center; background: #f0efe9; }.not-found > svg { width: 47px; height: 47px; color: var(--accent-dark); }.not-found > span { margin-top: 20px; color: #b3b1a7; font-size: 70px; font-weight: 850; letter-spacing: -.06em; }.not-found h1 { margin-bottom: 8px; }.not-found p { color: #77766f; }.not-found .button { margin-top: 18px; }
+
+/* ===== Báo cáo / Export ===== */
+.report-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding: 20px; }
+.report-card { display: flex; flex-direction: column; padding: 20px; background: #fbfbf8; border: 1px solid #e4e4de; border-radius: 4px; transition: .2s; }
+.report-card:hover { border-color: var(--accent); box-shadow: 0 10px 28px rgba(30,30,25,.07); transform: translateY(-3px); }
+.report-card-icon { width: 42px; height: 42px; display: grid; place-items: center; color: #87620f; background: #fff2cf; border-radius: 3px; }
+.report-card-icon svg { width: 20px; }
+.report-card-body { flex: 1; padding: 15px 0 18px; }
+.report-card-body h3 { margin: 0 0 6px; font-size: 14px; }
+.report-card-body p { margin: 0; color: #82827a; font-size: 10px; line-height: 1.6; }
+.report-card-actions { display: flex; gap: 8px; }
+.report-card-actions .button { flex: 1; justify-content: center; min-height: 38px; font-size: 10px; }
+.report-card-actions .button svg { width: 14px; }
+
+/* ===== Nhật ký thao tác ===== */
+.audit-badge { display: inline-flex; align-items: center; padding: 4px 8px; color: #536f9b; background: #e8effa; border-radius: 20px; font-size: 8px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+.audit-badge--create { color: #217158; background: #e1f4ec; }
+.audit-badge--update { color: #8b6410; background: #fff3ce; }
+.audit-badge--delete, .audit-badge--login_failed { color: #a1463f; background: #f9e6e3; }
+.audit-badge--login { color: #217158; background: #e1f4ec; }
+.audit-badge--export { color: #6d4c96; background: #f0e8f5; }
+.audit-message { max-width: 340px; overflow: hidden; text-overflow: ellipsis; color: #77776f; }
+.audit-summary { margin-top: 18px; }
+.audit-note-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 20px; }
+.audit-note-grid article { padding: 18px; background: #fbfbf8; border: 1px solid #e4e4de; border-radius: 4px; }
+.audit-note-grid article > svg { width: 21px; color: var(--accent-dark); }
+.audit-note-grid h3 { margin: 12px 0 6px; font-size: 13px; }
+.audit-note-grid p { margin: 0; color: #82827a; font-size: 10px; line-height: 1.65; }
+
+/* ===== Thông tin hệ thống ===== */
+.system-stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 18px; }
+.system-stat { display: flex; align-items: center; gap: 14px; padding: 18px; background: white; border: 1px solid #e0e1db; border-radius: 4px; }
+.system-stat-icon { width: 42px; height: 42px; display: grid; flex: 0 0 auto; place-items: center; color: #405f91; background: #e7eef9; border-radius: 3px; }
+.system-stat-icon svg { width: 19px; }
+.system-stat > div { display: grid; gap: 3px; min-width: 0; }
+.system-stat small { color: #96958d; font-size: 8px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.system-stat strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; }
+.system-stat em { color: #8b8b83; font-size: 9px; font-style: normal; }
+.system-api-url { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 190px; }
+.system-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.system-body { padding: 20px; }
+.system-list { margin: 0 0 16px; }
+.system-list > div { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 9px 0; border-bottom: 1px solid #edede8; }
+.system-list dt { color: #82827a; font-size: 10px; }
+.system-list dd { margin: 0; font-size: 11px; font-weight: 750; }
+.system-hint { margin: 0 0 14px; color: #82827a; font-size: 10px; line-height: 1.65; }
+.schedule-list { display: grid; gap: 11px; margin: 0; padding: 0; list-style: none; }
+.schedule-list li { display: flex; align-items: flex-start; gap: 10px; }
+.schedule-dot { width: 8px; height: 8px; flex: 0 0 auto; margin-top: 5px; background: var(--success); border-radius: 50%; box-shadow: 0 0 0 3px rgba(45,155,120,.16); }
+.schedule-list li > div { display: grid; gap: 3px; }
+.schedule-list strong { font-size: 11px; font-weight: 700; }
+.schedule-list em { color: #8b8b83; font-size: 9px; font-style: normal; }
+.schedule-list code { padding: 2px 5px; background: #f2f2ed; border-radius: 2px; font-size: 9px; }
+.system-doc-links { display: flex; flex-wrap: wrap; gap: 9px; }

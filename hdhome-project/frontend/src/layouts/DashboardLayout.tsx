@@ -1,8 +1,8 @@
 import { useEffect, useState, type ComponentType } from 'react';
 import {
-  Boxes, Building2, ChartNoAxesCombined, ChevronDown, ClipboardList, FileText, FolderKanban,
-  Gauge, Handshake, HardHat, LogOut, Menu, PackageOpen, PanelLeftClose, ShieldCheck,
-  UserRoundCog, UsersRound, X,
+  Boxes, Building2, ChartNoAxesCombined, ChevronDown, ClipboardList, FileBarChart, FileText,
+  FolderKanban, Gauge, Handshake, HardHat, LogOut, Menu, PackageOpen, PanelLeftClose,
+  ScrollText, Server, ShieldCheck, UserRoundCog, UsersRound, X,
 } from 'lucide-react';
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -19,6 +19,9 @@ const items: MenuItem[] = [
   { to: '/dashboard/contacts', label: 'Liên hệ', icon: ClipboardList, roles: ['ADMIN'] },
   { to: '/dashboard/users', label: 'Người dùng', icon: UserRoundCog, roles: ['ADMIN'] },
   { to: '/dashboard/roles', label: 'Vai trò', icon: ShieldCheck, roles: ['ADMIN'] },
+  { to: '/dashboard/reports', label: 'Báo cáo', icon: FileBarChart, roles: ['ADMIN', 'PROJECT_MANAGER'] },
+  { to: '/dashboard/audit-logs', label: 'Nhật ký', icon: ScrollText, roles: ['ADMIN'] },
+  { to: '/dashboard/system', label: 'Hệ thống', icon: Server, roles: ['ADMIN'] },
 ];
 
 const pageTitles: Record<string, string> = {
@@ -27,6 +30,8 @@ const pageTitles: Record<string, string> = {
   '/dashboard/contracts': 'Quản lý hợp đồng', '/dashboard/employees': 'Quản lý nhân sự',
   '/dashboard/materials': 'Quản lý vật tư', '/dashboard/contacts': 'Yêu cầu liên hệ',
   '/dashboard/users': 'Quản lý người dùng', '/dashboard/roles': 'Vai trò & phân quyền',
+  '/dashboard/reports': 'Xuất báo cáo & tài liệu', '/dashboard/audit-logs': 'Nhật ký thao tác',
+  '/dashboard/system': 'Thông tin hệ thống',
 };
 
 export function DashboardLayout() {

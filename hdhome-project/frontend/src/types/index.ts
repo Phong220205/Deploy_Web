@@ -55,3 +55,56 @@ export interface Option {
   value: string | number;
   label: string;
 }
+
+// ===== Tính năng vận hành mới =====
+
+export interface AuditLog {
+  audit_id: number;
+  user_id?: number;
+  username?: string;
+  role_name?: string;
+  action: string;
+  entity?: string;
+  entity_id?: string;
+  method?: string;
+  path?: string;
+  status_code?: number;
+  ip_address?: string;
+  user_agent?: string;
+  payload?: string;
+  message?: string;
+  created_at: string;
+}
+
+export interface SystemInfo {
+  server: {
+    nodeVersion: string;
+    platform: string;
+    uptimeSeconds: number;
+    memoryMB: number;
+  };
+  database: {
+    version: string;
+    serverTime: string;
+  };
+  cache: {
+    entries: number;
+    expired: number;
+    inflight: number;
+    maxEntries: number;
+  };
+  mailer: {
+    configured: boolean;
+    host?: string;
+    from?: string;
+    frontendUrl: string;
+  };
+  scheduler: Array<{ key: string; cron: string; label: string; running: boolean }>;
+}
+
+export interface ExportResource {
+  key: string;
+  label: string;
+  description: string;
+  endpoint: string;
+}
