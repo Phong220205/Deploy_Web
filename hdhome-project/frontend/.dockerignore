@@ -6,6 +6,7 @@ build/
 *.md
 *.log
 .env
-.env.*
+.env.local
+.env.*.local
 coverage/
 tests/
