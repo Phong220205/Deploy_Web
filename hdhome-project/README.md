@@ -140,6 +140,33 @@ Giá trị mặc định:
 VITE_API_URL=http://localhost:5000/api
 ```
 
+### Dùng MySQL trên cloud (Aiven / RDS)
+
+Hệ thống chạy được với MySQL bất kỳ, kể cả instance free-tier. Copy file mẫu rồi điền thông số:
+
+```bash
+copy .env.import.example .env.import
+```
+
+```env
+DB_HOST=<host>.aivencloud.com
+DB_PORT=26855
+DB_USER=avnadmin
+DB_PASSWORD=<password>
+DB_NAME=defaultdb
+DB_SSL=true
+```
+
+> `.env.import` chứa mật khẩu thật và **đã được `.gitignore` loại trừ** — không được commit.
+
+Import schema + seed vào database:
+
+```bash
+node scripts/import-db.js .env.import
+```
+
+Script dùng `CREATE TABLE IF NOT EXISTS` và `ON DUPLICATE KEY UPDATE` nên chạy lại nhiều lần vẫn an toàn.
+
 ## 7. Cài đặt
 
 Terminal 1:
@@ -277,6 +304,13 @@ npm test
 npm run check
 ```
 
+Smoke test toàn diện (cần backend đang chạy ở `localhost:5000`):
+
+```powershell
+cd backend
+powershell -File scripts\smoke-test.ps1
+```
+
 Frontend production build:
 
 ```bash
@@ -309,6 +343,8 @@ MySQL chỉ lưu metadata và `file_path`. Backend kiểm tra MIME type, kích t
 
 - `ECONNREFUSED 3306`: MySQL chưa chạy hoặc cấu hình `.env` sai.
 - `Access denied for user`: sai `DB_USER`/`DB_PASSWORD`.
+- `ENOTFOUND <host>.aivencloud.com`: service Aiven đang `Powered off` hoặc đã đổi host — vào console Aiven kiểm tra lại Host/Port.
+- `Data truncated for column 'status'`: giá trị `status` gửi lên không nằm trong ENUM của bảng. Giá trị hợp lệ được khai báo tại `backend/src/validators/common.js` (`STATUS_ENUMS`) và `backend/database/schema.sql` — hai nơi này phải khớp nhau.
 - Frontend báo không kết nối máy chủ: backend chưa chạy ở cổng 5000 hoặc `VITE_API_URL` sai.
 - Token hết hạn: đăng xuất và đăng nhập lại.
 - Upload thất bại: kiểm tra định dạng, dung lượng dưới 10 MB và quyền ghi thư mục `backend/uploads`.

@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `phone` VARCHAR(20) DEFAULT NULL,
   `employee_id` INT DEFAULT NULL,
   `role_id` INT NOT NULL,
-  `status` ENUM('ACTIVE','INACTIVE') DEFAULT 'ACTIVE',
+  `status` ENUM('ACTIVE','LOCKED') DEFAULT 'ACTIVE',
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   KEY `idx_role_id` (`role_id`),
@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `note` TEXT DEFAULT NULL,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY `uq_customer_phone` (`phone`),
   KEY `idx_full_name` (`full_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -61,6 +62,7 @@ CREATE TABLE IF NOT EXISTS `investors` (
   `note` TEXT DEFAULT NULL,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY `uq_investor_phone` (`phone`),
   KEY `idx_full_name` (`full_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -107,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `projects` (
   `start_date` DATE DEFAULT NULL,
   `expected_end_date` DATE DEFAULT NULL,
   `actual_end_date` DATE DEFAULT NULL,
-  `status` ENUM('PLANNING','IN_PROGRESS','COMPLETED','ON_HOLD','CANCELLED') DEFAULT 'PLANNING',
+  `status` ENUM('PLANNING','IN_PROGRESS','PAUSED','COMPLETED','CANCELLED') DEFAULT 'PLANNING',
   `progress` INT DEFAULT 0,
   `featured` TINYINT(1) DEFAULT 0,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -131,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `contracts` (
   `start_date` DATE DEFAULT NULL,
   `end_date` DATE DEFAULT NULL,
   `contract_value` DECIMAL(15,2) DEFAULT 0,
-  `status` ENUM('ACTIVE','EXPIRED','TERMINATED','PENDING') DEFAULT 'ACTIVE',
+  `status` ENUM('DRAFT','SIGNED','IN_PROGRESS','COMPLETED','CANCELLED') DEFAULT 'DRAFT',
   `note` TEXT DEFAULT NULL,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -151,7 +153,8 @@ CREATE TABLE IF NOT EXISTS `contact_requests` (
   `message` TEXT NOT NULL,
   `status` ENUM('NEW','CONTACTED','CLOSED') DEFAULT 'NEW',
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY `uq_contact_phone_subject` (`phone`, `subject`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ============================================================
@@ -194,6 +197,7 @@ CREATE TABLE IF NOT EXISTS `progress_updates` (
   `updated_by` INT NOT NULL,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY `uq_progress_project_title` (`project_id`, `title`),
   KEY `idx_project_id` (`project_id`),
   KEY `idx_updated_by` (`updated_by`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

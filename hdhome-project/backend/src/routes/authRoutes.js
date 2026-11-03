@@ -7,10 +7,14 @@ import { validateLogin } from '../validators/resourceValidators.js';
 
 const router = Router();
 const loginLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  limit: 10,
+  windowMs: Number(process.env.LOGIN_RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000,
+  limit:
+    process.env.NODE_ENV === 'test'
+      ? 1000
+      : Number(process.env.LOGIN_RATE_LIMIT_MAX) || 10,
   standardHeaders: 'draft-8',
   legacyHeaders: false,
+  skip: () => process.env.NODE_ENV === 'test',
   message: { success: false, message: 'Bạn đã đăng nhập sai quá nhiều lần, vui lòng thử lại sau.' },
 });
 

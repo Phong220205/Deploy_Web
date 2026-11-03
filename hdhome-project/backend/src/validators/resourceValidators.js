@@ -1,4 +1,4 @@
-import { compactErrors, validators as v } from './common.js';
+import { compactErrors, STATUS_ENUMS, validators as v } from './common.js';
 
 export const validateLogin = (body) => compactErrors([
   v.required(body.username, 'Tên đăng nhập'),
@@ -10,6 +10,7 @@ export const validateProject = (body, req) => {
     v.required(body.project_code, 'Mã dự án'),
     v.required(body.project_name, 'Tên dự án'),
     body.progress !== undefined ? v.range(body.progress, 0, 100, 'Tiến độ') : null,
+    v.oneOf(body.status, STATUS_ENUMS.projects),
   ]);
   if (body.start_date && body.expected_end_date && body.start_date > body.expected_end_date) {
     errors.push('Ngày bắt đầu không được lớn hơn ngày dự kiến hoàn thành.');
@@ -39,6 +40,7 @@ export const validateUser = (body, req) => compactErrors([
   v.email(body.email),
   v.phone(body.phone),
   v.required(body.role_id, 'Vai trò'),
+  v.oneOf(body.status, STATUS_ENUMS.users),
 ]);
 
 export const validateGeneric = (resource) => (body) => {
@@ -46,9 +48,11 @@ export const validateGeneric = (resource) => (body) => {
     customers: ['full_name'], investors: ['full_name'], employees: ['employee_code', 'full_name'],
     materials: ['material_code', 'material_name', 'unit'], contracts: ['contract_number', 'project_id', 'contract_value'],
   }[resource] || [];
+  const statusEnum = { employees: STATUS_ENUMS.employees, contracts: STATUS_ENUMS.contracts, contacts: STATUS_ENUMS.contacts }[resource];
   return compactErrors([
     ...required.map((field) => v.required(body[field], field)),
     v.email(body.email),
     v.phone(body.phone),
+    statusEnum ? v.oneOf(body.status, statusEnum) : null,
   ]);
 };

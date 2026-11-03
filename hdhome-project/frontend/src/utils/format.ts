@@ -1,7 +1,7 @@
 export const statusLabels: Record<string, string> = {
   PLANNING: 'Lập kế hoạch', IN_PROGRESS: 'Đang thi công', PAUSED: 'Tạm dừng',
   COMPLETED: 'Hoàn thành', CANCELLED: 'Đã hủy', DRAFT: 'Bản nháp', SIGNED: 'Đã ký',
-  ACTIVE: 'Hoạt động', INACTIVE: 'Ngừng hoạt động', LOCKED: 'Đã khóa',
+  ACTIVE: 'Hoạt động', INACTIVE: 'Ngừng hoạt động', LOCKED: 'Đã khóa', LEAVE: 'Nghỉ phép',
   NEW: 'Mới', CONTACTED: 'Đã liên hệ', CLOSED: 'Đã đóng',
 };
 
