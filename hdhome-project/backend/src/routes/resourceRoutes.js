@@ -10,7 +10,7 @@ const managerRoles = authorizeRoles(ROLES.ADMIN, ROLES.PROJECT_MANAGER);
 
 export function createResourceRouter(resource, entityName) {
   const router = Router();
-  const controller = createCrudController(repositories[resource], { entityName });
+  const controller = createCrudController(repositories[resource], { entityName, resourceKey: resource });
   router.use(managerRoles);
   router.get('/', controller.list);
   router.get('/:id', controller.get);

@@ -3,6 +3,8 @@ import { ApiError } from '../utils/ApiError.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 import { getPagination, paginationMeta } from '../utils/pagination.js';
 import { sendSuccess } from '../utils/response.js';
+import { recordAudit, AUDIT_ACTIONS } from '../services/auditService.js';
+import { notifyNewContact } from './authController.js';
 
 export const listFeaturedProjects = asyncHandler(async (req, res) => {
   const { page, limit, offset } = getPagination(req.query);
@@ -47,5 +49,24 @@ export const createContactRequest = asyncHandler(async (req, res) => {
      VALUES (?, ?, ?, ?, ?, 'NEW')`,
     [req.body.full_name, req.body.phone, req.body.email || null, req.body.subject, req.body.message],
   );
+
+  const contact = {
+    contact_id: result.insertId,
+    full_name: req.body.full_name,
+    phone: req.body.phone,
+    email: req.body.email,
+    subject: req.body.subject,
+  };
+
+  await recordAudit(req, {
+    action: AUDIT_ACTIONS.CREATE,
+    entity: 'contact_requests',
+    entityId: result.insertId,
+    message: `Nhận yêu cầu tư vấn từ ${req.body.full_name}`,
+  });
+
+  // Gửi email thông báo cho quản trị viên (không chặn luồng chính nếu lỗi)
+  notifyNewContact(contact).catch(() => {});
+
   sendSuccess(res, { contact_id: result.insertId }, 'Yêu cầu của bạn đã được ghi nhận.', 201);
 });

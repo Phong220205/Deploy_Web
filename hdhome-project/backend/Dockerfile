@@ -4,10 +4,10 @@ FROM node:20-alpine
 WORKDIR /app
 
 # Copy dependency manifests trước để tận dụng cache
-COPY package.json ./
+COPY package.json package-lock.json ./
 
 # Cài dependencies (production only để nhỏ image)
-RUN npm install --omit=dev
+RUN npm ci --omit=dev
 
 # Copy source code
 COPY server.js ./

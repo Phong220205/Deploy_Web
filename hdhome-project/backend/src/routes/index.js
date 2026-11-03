@@ -1,18 +1,22 @@
 import { Router } from 'express';
 import { pool } from '../config/database.js';
-import { getSummary } from '../controllers/dashboardController.js';
+import { buildSummary } from '../controllers/dashboardController.js';
 import { deleteFile, deleteImage } from '../controllers/projectRelationController.js';
 import { authenticate } from '../middleware/authenticate.js';
 import { authorizeRoles } from '../middleware/authorize.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
 import { ROLES } from '../utils/permissions.js';
 import { sendSuccess } from '../utils/response.js';
+import { cache, cacheKeys } from '../utils/cache.js';
 import authRoutes from './authRoutes.js';
+import auditRoutes from './auditRoutes.js';
 import contactRoutes from './contactRoutes.js';
+import exportRoutes from './exportRoutes.js';
 import projectRoutes from './projectRoutes.js';
 import publicRoutes from './publicRoutes.js';
 import roleRoutes from './roleRoutes.js';
 import { createResourceRouter } from './resourceRoutes.js';
+import systemRoutes from './systemRoutes.js';
 import userRoutes from './userRoutes.js';
 
 const router = Router();
@@ -23,7 +27,11 @@ router.get('/health', asyncHandler(async (_req, res) => {
 router.use('/auth', authRoutes);
 router.use('/public', publicRoutes);
 router.use(authenticate);
-router.get('/dashboard/summary', getSummary);
+router.get('/dashboard/summary', asyncHandler(async (req, res) => {
+  const key = cacheKeys.dashboardSummary(req.user.user_id);
+  const data = await cache.wrap(key, () => buildSummary(req.user), 30_000);
+  sendSuccess(res, data);
+}));
 router.use('/projects', projectRoutes);
 router.use('/customers', createResourceRouter('customers', 'Khách hàng'));
 router.use('/investors', createResourceRouter('investors', 'Chủ đầu tư'));
@@ -33,6 +41,9 @@ router.use('/contracts', createResourceRouter('contracts', 'Hợp đồng'));
 router.use('/users', userRoutes);
 router.use('/roles', roleRoutes);
 router.use('/contacts', contactRoutes);
+router.use('/export', exportRoutes);
+router.use('/audit-logs', auditRoutes);
+router.use('/system', systemRoutes);
 router.delete('/files/:id', authorizeRoles(ROLES.ADMIN, ROLES.PROJECT_MANAGER), deleteFile);
 router.delete('/images/:id', authorizeRoles(ROLES.ADMIN, ROLES.PROJECT_MANAGER), deleteImage);
 
