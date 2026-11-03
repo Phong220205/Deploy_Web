@@ -6,7 +6,7 @@ import { ErrorState, LoadingState } from '../../components/common/Feedback';
 import { ProgressBar } from '../../components/common/ProgressBar';
 import { StatusBadge } from '../../components/common/StatusBadge';
 import type { ApiResponse, Project } from '../../types';
-import { formatDate } from '../../utils/format';
+import { formatDate, formatStatus } from '../../utils/format';
 
 export function ProjectDetailPage() {
   const { id } = useParams();
@@ -141,7 +141,7 @@ export function ProjectDetailPage() {
                     </div>
                     <div className="fact-content">
                       <span className="fact-label">Trạng thái</span>
-                      <span className="fact-value">{project.status}</span>
+                      <span className="fact-value">{formatStatus(project.status)}</span>
                     </div>
                   </div>
                 </div>
