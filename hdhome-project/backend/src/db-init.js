@@ -10,7 +10,11 @@ import mysql from 'mysql2/promise';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const BACKEND_DIR = path.resolve(__dirname, '..');
 const SCHEMA_FILE = path.join(BACKEND_DIR, 'database', 'schema.sql');
-const SEED_FILE = path.join(BACKEND_DIR, 'database', 'seed.sql');
+const SEED_FILES = [
+  path.join(BACKEND_DIR, 'database', 'seed.sql'),
+  path.join(BACKEND_DIR, 'database', 'seed-projects-extra.sql'),
+  path.join(BACKEND_DIR, 'database', 'seed-extra.sql'),
+];
 
 function splitStatements(sql) {
   const noComments = sql
@@ -95,11 +99,12 @@ export async function ensureDatabaseImported({ logger = console } = {}) {
       }
     }
 
-    if (existsSync(SEED_FILE)) {
-      let sql = readFileSync(SEED_FILE, 'utf8');
+    for (const seedFile of SEED_FILES) {
+      if (!existsSync(seedFile)) continue;
+      let sql = readFileSync(seedFile, 'utf8');
       sql = filterForDatabase(sql, dbName);
       const stmts = splitStatements(sql);
-      logger.log(`[db-init] seed: ${stmts.length} statements`);
+      logger.log(`[db-init] seed ${path.basename(seedFile)}: ${stmts.length} statements`);
       for (const stmt of stmts) {
         try {
           await conn.query(stmt);

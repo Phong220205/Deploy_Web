@@ -6,7 +6,7 @@ import { Pagination } from '../../components/common/Pagination';
 import { ProjectCard } from '../../components/common/ProjectCard';
 import type { ApiResponse, Pagination as PaginationType, Project } from '../../types';
 
-const defaultPagination: PaginationType = { page: 1, limit: 6, total: 0, totalPages: 1 };
+const defaultPagination: PaginationType = { page: 1, limit: 9, total: 0, totalPages: 1 };
 
 export function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -36,7 +36,7 @@ export function ProjectsPage() {
     setLoading(true);
     setError('');
     try {
-      const response = await api.get<ApiResponse<Project[]>>('/public/projects', { params: { page, limit: 6, search, status } });
+      const response = await api.get<ApiResponse<Project[]>>('/public/projects', { params: { page, limit: 9, search, status } });
       setProjects(response.data.data);
       setPagination(response.data.pagination || defaultPagination);
     } catch (err) {

@@ -72,6 +72,10 @@ backend/uploads/projects/*
 !backend/uploads/projects/.gitkeep
 *.sql
 *.dump
+!backend/database/schema.sql
+!backend/database/seed.sql
+!backend/database/seed-extra.sql
+!backend/database/seed-projects-extra.sql
 
 # ===========================================
 # MariaDB/MySQL local database
@@ -110,3 +114,6 @@ frontend.err
 # AWS scripts excluded from push (security)
 # ===========================================
 .excluded-aws-scripts/
+
+# Log test local
+backend/logs-test.out

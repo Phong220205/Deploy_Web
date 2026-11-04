@@ -78,7 +78,7 @@ export function HomePage() {
   async function loadProjects() {
     setLoading(true); setError('');
     try {
-      const response = await api.get<ApiResponse<Project[]>>('/public/projects?limit=3');
+      const response = await api.get<ApiResponse<Project[]>>('/public/projects?limit=6');
       setProjects(response.data.data);
     } catch { setError('Chưa thể tải dự án từ hệ thống. Vui lòng kiểm tra backend và MySQL.'); }
     finally { setLoading(false); }

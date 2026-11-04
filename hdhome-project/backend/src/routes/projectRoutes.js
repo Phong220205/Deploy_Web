@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { projectController } from '../controllers/projectController.js';
+import { projectController, toggleProjectFeatured } from '../controllers/projectController.js';
 import {
   addProgress, addProjectMaterial, assignEmployee, deleteProjectMaterial, listFiles, listImages,
   listProgress, listProjectEmployees, listProjectMaterials, unassignEmployee, updateProjectMaterial,
@@ -37,6 +37,7 @@ router.post('/:id/images', allStaff, upload.array('images', 10), uploadImages);
 
 router.get('/:id', allStaff, projectController.get);
 router.put('/:id', managers, validate(validateProject), projectController.update);
+router.patch('/:id/featured', managers, toggleProjectFeatured);
 router.delete('/:id', managers, projectController.remove);
 
 export default router;
