@@ -1,4 +1,4 @@
--- ============================================================
+﻿-- ============================================================
 -- Projects (bổ sung 25 dự án thực tế)
 -- ============================================================
 INSERT INTO `projects` (`project_id`, `project_code`, `project_name`, `customer_id`, `investor_id`, `description`, `location`, `start_date`, `expected_end_date`, `status`, `progress`, `featured`) VALUES
@@ -27,4 +27,4 @@ INSERT INTO `projects` (`project_id`, `project_code`, `project_name`, `customer_
   (38, 'HD-AC29', 'Chung cư mini 12 căn AC29', 17, 2, 'Chung cư mini 12 căn hộ 2 phòng ngủ, hệ thống an ninh và bãi xe 2 tầng.', 'Cẩm Lệ, Đà Nẵng', '2026-08-10', '2027-07-31', 'PLANNING', 5, 1),
   (39, 'HD-AD30', 'Nhà máy bao bì AD30', 18, 3, 'Nhà máy bao bì 4.500 m² gồm dây chuyền in, khu cắt và kho thành phẩm.', 'Liên Chiểu, Đà Nẵng', '2025-11-20', '2026-12-31', 'IN_PROGRESS', 57, 1),
   (40, 'HD-AE31', 'Quán cà phê vườn trên mái AE31', 19, 4, 'Quán cà phê trên mái nhà 4 tầng kết hợp vườn trên mái, view hồ sân vườn.', 'Thanh Khê, Đà Nẵng', '2026-03-15', '2026-12-15', 'IN_PROGRESS', 31, 1)
-ON DUPLICATE KEY UPDATE project_name = VALUES(project_name), customer_id = VALUES(customer_id), investor_id = VALUES(investor_id), description = VALUES(description), location = VALUES(location), start_date = VALUES(start_date), expected_end_date = VALUES(expected_end_date), status = VALUES(status), progress = VALUES(progress), featured = VALUES(featured);
+ON DUPLICATE KEY UPDATE project_name = VALUES(project_name), customer_id = VALUES(customer_id), investor_id = VALUES(investor_id), description = VALUES(description), location = VALUES(location), start_date = VALUES(start_date), expected_end_date = VALUES(expected_end_date), status = VALUES(status), progress = VALUES(progress);

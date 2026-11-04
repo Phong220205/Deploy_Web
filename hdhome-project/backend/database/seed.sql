@@ -1,4 +1,4 @@
--- HDHOME Seed Data
+﻿-- HDHOME Seed Data
 -- Idempotent: chạy lại nhiều lần không tạo dữ liệu trùng.
 -- Tài khoản demo (bcrypt cost 10):
 --   admin/Admin@123, projectmanager/Manager@123, technical/Technical@123
@@ -96,8 +96,8 @@ INSERT INTO `projects` (`project_id`, `project_code`, `project_name`, `customer_
   (3, 'HD-C03', 'Biệt thự sân vườn C03', 3, 3, 'Biệt thự sân vườn kết nối mảng xanh và không gian sinh hoạt.', 'Ngũ Hành Sơn, Đà Nẵng', '2026-03-15', '2027-01-15', 'IN_PROGRESS', 42, 1),
   (4, 'HD-D04', 'Cải tạo nhà phố D04', 4, 4, 'Cải tạo mặt tiền, nội thất và hệ thống điện nước hiện hữu.', 'Sơn Trà, Đà Nẵng', '2026-05-05', '2026-10-10', 'IN_PROGRESS', 25, 1),
   (5, 'HD-E05', 'Nhà phố 3 tầng E05', 5, 5, 'Hồ sơ thiết kế nhà phố ba tầng theo nhu cầu gia đình.', 'Cẩm Lệ, Đà Nẵng', '2026-09-01', '2027-04-30', 'PLANNING', 5, 1),
-  (6, 'HD-F06', 'Công trình dân dụng F06', 6, 1, 'Công trình dân dụng quy mô vừa, dữ liệu phục vụ minh họa.', 'Liên Chiểu, Đà Nẵng', '2025-10-01', '2026-05-30', 'PAUSED', 55, 0)
-ON DUPLICATE KEY UPDATE project_name = VALUES(project_name), customer_id = VALUES(customer_id), investor_id = VALUES(investor_id), description = VALUES(description), location = VALUES(location), start_date = VALUES(start_date), expected_end_date = VALUES(expected_end_date), status = VALUES(status), progress = VALUES(progress), featured = VALUES(featured);
+  (6, 'HD-F06', 'Công trình dân dụng F06', 6, 1, 'Công trình dân dụng quy mô vừa, dữ liệu phục vụ minh họa.', 'Liên Chiểu, Đà Nẵng', '2025-10-01', '2026-05-30', 'PAUSED', 55, 1)
+ON DUPLICATE KEY UPDATE project_name = VALUES(project_name), customer_id = VALUES(customer_id), investor_id = VALUES(investor_id), description = VALUES(description), location = VALUES(location), start_date = VALUES(start_date), expected_end_date = VALUES(expected_end_date), status = VALUES(status), progress = VALUES(progress);
 
 -- ============================================================
 -- Contracts
